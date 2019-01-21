@@ -18,7 +18,7 @@ class Campaigns {
     const templateText = template.innerText;
     const templateHTML = template.innerHTML;
     const campaign = window.location.href.match(/[^\/]*$/)[0];
-    
+
     const data = {
       "template": templateHTML
     };
@@ -57,6 +57,7 @@ class Campaigns {
 
       match.forEach((variable) => { 
         let cleanV = variable.match(/[\w\.]+/)[0];
+
         availableVars = availableVars.filter((variable) => {
           const found = variable.innerText === cleanV;
           
