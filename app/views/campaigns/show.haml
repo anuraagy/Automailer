@@ -10,7 +10,7 @@
       #template
         .row
           .col.col-md-9
-            = text_area_tag "Email template", "", class: "quill_container", id: "campaign-template"
+            = text_area_tag "Email template", @campaign.template, class: "quill_container", id: "campaign-template"
           .col.col-md-3
             .card.mb-3{:style => "max-width: 20rem; height: 345px;"}
               .card-header Variables
