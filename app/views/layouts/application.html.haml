@@ -1,0 +1,16 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
+    %title Automailer
+    = csrf_meta_tags
+    %script{:src => "https://cdn.quilljs.com/1.1.9/quill.js"}
+    %link{:href => "https://cdn.quilljs.com/1.1.9/quill.snow.css", :rel => "stylesheet"}/
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+    .wrapper
+      = render "shared/navbar"
+      = render "shared/messages"
+      = yield

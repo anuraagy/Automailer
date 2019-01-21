@@ -1,0 +1,21 @@
+.container.top-margin
+  .col.col-md-6.offset-3.content-box
+    %h2.auth-title
+      Edit #{resource_name.to_s.humanize}
+    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+      = devise_error_messages!
+      .field.form-group
+        = f.text_field :name, placeholder: "Full name", autofocus: true, autocomplete: "name", required: true, :class => "form-control"
+      .field.form-group
+        = f.email_field :email, placeholder: "Email", autofocus: true, autocomplete: "email", required: true, :class => "form-control"
+      - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+        %div
+          Currently waiting confirmation for: #{resource.unconfirmed_email}
+      .field.form-group
+        = f.password_field :password, placeholder: "Password (leave blank if you don't want to change it)", autocomplete: "new-password", :class => "form-control"
+      .field.form-group
+        = f.password_field :password_confirmation, placeholder: "Password confirmation", autocomplete: "new-password", :class => "form-control"
+      .field.form-group
+        = f.password_field :current_password, placeholder: "Current password (we need it to confirm your changes)", autocomplete: "current-password", :class => "form-control"
+      .actions
+        = f.submit "Update", :class => "btn btn-primary"

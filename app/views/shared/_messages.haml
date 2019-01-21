@@ -1,0 +1,13 @@
+- flash.each do |key, value|
+  - if key == "notice"
+    .alert.alert-dismissible.alert-info
+      %button.close{"data-dismiss" => "alert", :type => "button"} ×
+      %h4.alert-heading Notice!
+      %p.mb-0
+        = value
+  - elsif key == "alert"
+    .alert.alert-dismissible.alert-danger
+      %button.close{"data-dismiss" => "alert", :type => "button"} ×
+      %h4.alert-heading Error!
+      %p.mb-0
+        = value
