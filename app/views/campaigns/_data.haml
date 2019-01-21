@@ -1,0 +1,16 @@
+%table.table.table-hover
+  %thead
+    %tr
+      - headers.each do |header|
+        %th{:scope => "col"}  
+          = header
+  %tbody
+    - rows.each do |row|
+      %tr
+        - headers.each do |header|
+          %td 
+            = row[header]
+
+    
+
+      

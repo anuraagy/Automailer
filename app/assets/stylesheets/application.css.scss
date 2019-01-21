@@ -370,6 +370,17 @@ td {
   font-family: "Arial";
 }
 
+.list-item {
+  font-size: 1rem !important;
+}
+
+.data-table table {
+  display: block;
+  overflow-x: auto;
+  width:100%;
+  white-space: nowrap;
+}
+
 @media screen and (max-width: 992px) {
   .login-form {
     padding-left: 0px;

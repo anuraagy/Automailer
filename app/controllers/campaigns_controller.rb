@@ -20,6 +20,22 @@ class CampaignsController < ApplicationController
     end
   end
 
+  def upload
+    @campaign = Campaign.find(params[:id])
+
+    if @campaign.user_id != current_user.id
+      redirect_to root_path, alert: "You can't access this campaign" 
+    end
+
+    uploaded_io = params[:csv_data]
+
+    if @campaign.update(data: uploaded_io.read)
+      redirect_to campaign_path(@campaign)
+    else
+      render campaign_path(@campaign), alert: "There is something wrong with your file. Please try again."
+    end
+  end
+
   def update
     campaign = Campaign.find(params[:id])
 
