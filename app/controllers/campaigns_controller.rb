@@ -25,14 +25,20 @@ class CampaignsController < ApplicationController
 
     if @campaign.user_id != current_user.id
       redirect_to root_path, alert: "You can't access this campaign" 
+      return
     end
 
-    uploaded_io = params[:csv_data]
+    uploaded_io = params[:csv_data].read.gsub("\xEF\xBB\xBF", "");
 
-    if @campaign.update(data: uploaded_io.read)
-      redirect_to campaign_path(@campaign)
+    if !has_email_header(uploaded_io)
+      redirect_to campaign_path(@campaign)+ "#data", alert: "You need to have an email column in your CSV!"
+      return
+    end
+
+    if @campaign.update(data: uploaded_io)
+      redirect_to campaign_path(@campaign) + "#data"
     else
-      render campaign_path(@campaign), alert: "There is something wrong with your file. Please try again."
+      render campaign_path(@campaign) + "#data", alert: "There is something wrong with your file. Please try again."
     end
   end
 
@@ -101,5 +107,12 @@ class CampaignsController < ApplicationController
 
   def campaign_params
     params.permit(:name, :status, :template, :data, attachments: [])
+  end
+
+  def has_email_header(data)
+    return false if data.blank?
+
+    headers = CSV.parse(data, headers: true).headers.map { |header| header.parameterize.underscore}
+    headers.include?("email")
   end
 end

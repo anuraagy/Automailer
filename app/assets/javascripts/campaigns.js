@@ -9,8 +9,19 @@ class Campaigns {
     this.campaignDash.on("keyup", ".ql-editor", this.autoSave);
     this.campaignDash.on("click", "#show-template-btn", this.showTemplate);
     this.campaignDash.on("click", "#show-data-btn", this.showData);
+    this.campaignDash.on("click", "#show-history-btn", this.showHistory);
 
+
+    this.showCorrectView();
     this.updateVariables();
+  }
+
+  showCorrectView() {
+    const view = window.location.href.split("#")[1];
+
+    if(view == "data") this.showData();
+    else if(view == "history") this.showHistory();
+    else this.showTemplate();
   }
 
   autoSave() {
@@ -35,13 +46,21 @@ class Campaigns {
   }
 
   showTemplate() {
-    $("#template").show();
-    $("#data").hide();
+    $("#template-view").show();
+    $("#data-view").hide();
+    $("#history-view").hide();
   }
 
   showData() {
-    $("#template").hide();
-    $("#data").show();
+    $("#template-view").hide();
+    $("#data-view").show();
+    $("#history-view").hide();
+  }
+
+  showHistory() {
+    $("#template-view").hide();
+    $("#data-view").hide();
+    $("#history-view").show();
   }
 
   updateVariables(e) {

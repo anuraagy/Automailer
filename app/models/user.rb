@@ -8,4 +8,5 @@ class User < ApplicationRecord
   validates :name, presence: true
 
   has_many :campaigns
+  has_many :credentials
 end
