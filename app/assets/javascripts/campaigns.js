@@ -17,6 +17,8 @@ class Campaigns {
     this.campaignDash.on("click", "#show-run-campaign-modal-btn", this.displayRunCampaignModal);
     this.campaignDash.on("click", "#run-campaign-btn", this.runCampaign);
 
+    $('[data-toggle="popover"]').popover(); 
+
     if(this.campaignDash.length !== 0) {
       this.showCorrectView();
       this.updateVariables();
@@ -51,6 +53,7 @@ class Campaigns {
       if(response.success) {
         toastr.success(response.message);
         $("#run-campaign-modal").modal('hide');
+        Turbolinks.visit(`/campaigns/${campaign}#history`);
       } else {
         toastr.error(response.message);
       }

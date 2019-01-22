@@ -15,5 +15,10 @@ Rails.application.routes.draw do
     get  "attachments",   on: :member, as: "attachments"
   end
 
+  resources :events, only: [] do 
+    get "data",  on: :member, as: "data"
+    get "email", on: :member, as: "email"
+  end
+
   resources :credentials, only: [:index, :create, :show, :update, :destroy]
 end

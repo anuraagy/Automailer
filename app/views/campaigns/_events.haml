@@ -1,0 +1,20 @@
+%table.table.table-hover
+  %thead
+    %tr
+      %th Subject/Template
+      %th Status
+      %th CSV Data
+      %th Sent at
+  %tbody
+    - events.each do |event|
+      %tr
+        %td 
+          = button_tag  "View Info", "data-container" => "body", "data-content" => event.template, "data-html" => "true", "data-original-title" => event.subject, "data-placement" => "left", "data-toggle" => "popover", "data-trigger" => "focus", class: "badge badge-primary"
+        %td 
+          = event.status
+        %td
+          = link_to "Data", data_event_path(event) + ".csv", class: "badge badge-primary"
+        %td
+          = event.created_at
+
+    

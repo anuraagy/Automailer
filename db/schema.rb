@@ -61,13 +61,16 @@ ActiveRecord::Schema.define(version: 2019_01_22_183048) do
   end
 
   create_table "events", force: :cascade do |t|
+    t.string "subject", null: false
     t.text "template", null: false
     t.text "data", null: false
     t.string "status"
     t.bigint "campaign_id"
+    t.bigint "credential_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["campaign_id"], name: "index_events_on_campaign_id"
+    t.index ["credential_id"], name: "index_events_on_credential_id"
   end
 
   create_table "users", force: :cascade do |t|

@@ -6,34 +6,22 @@ class Campaign < ApplicationRecord
   validates :name, presence: true
 
   def run(credential)
-    if data.blank?
-      return { success: false, message: "Please upload data to send emails!" } 
+    return { success: false, message: "Invalid credentials" } unless valid_credential?(credential) 
+
+    event = Event.new(campaign_id: id, template: template, data: data, credential_id: credential.id, subject: subject, status: "Created")
+
+    if event.save
+      return event.start
+    else
+      return { success: false, message: event.errors.full_messages } 
     end
-    
-    rows = CSV.parse(data, headers: true)
-    headers = rows.headers
-    templates = []
-
-    rows.each_with_index do |row, index|
-      templates[index] = template
-
-      headers.each do |header|
-        cleanHeader = header.parameterize.underscore
-
-        if cleanHeader == "email" && !valid_email?(row[header])
-          return { success: false, message: "You seem to have invalid emails in your CSV. Please reupload and try again!" } 
-        end
-
-        templates[index] = templates[index].gsub("{{#{}}}", row[header]) 
-      end
-    end
-
-    
-
-    return { success: true }
   end
 
-  def valid_email?(email)
-    email.match(URI::MailTo::EMAIL_REGEXP).present?
+  def file_paths
+    attachments.includes(:blob).map { |attachment| { path: ActiveStorage::Blob.service.send(:path_for, attachment.key), name: attachment.blob.filename.to_s } }
+  end
+
+  def valid_credential?(credential)
+    credential.valid_smtp? && credential.user == user
   end
 end

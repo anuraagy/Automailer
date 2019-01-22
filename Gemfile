@@ -14,6 +14,7 @@ gem 'mailgun-ruby'
 gem 'config'
 gem 'byebug'
 gem 'pry-rails'
+gem 'mail'
 
 # Authentication
 gem 'devise'

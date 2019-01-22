@@ -2,7 +2,6 @@
   .content-box
     %h1.inline-block
       = @campaign.name
-      = link_to "Run Campaign", "javascript:void(0)", class: "btn btn-lg btn-info", id: "show-run-campaign-modal-btn"
     .inline-block.pull-right
       = link_to "Template", campaign_path(@campaign), class: "btn btn-primary", id: "show-template-btn"
       = link_to "Data", "#data", class: "btn btn-primary", id: "show-data-btn", "data-turbolinks" => "false"
@@ -17,6 +16,7 @@
 
 
           .col.col-md-3
+            = link_to "Run Campaign", "javascript:void(0)", class: "btn btn-block btn-primary", id: "show-run-campaign-modal-btn"
             .card.mb-3{:style => "max-width: 20rem; height: 345px;"}
               .card-header Variables
               .card-body#variables
@@ -57,6 +57,8 @@
           = render "campaigns/data", rows: parse_data(@campaign.data), headers: parse_headers(@campaign.data)
 
       #history-view{style: "display: none"}
+        = render "campaigns/events", events: @campaign.events
+
   #modal-container
     #run-campaign-modal.modal.fade
       .modal-dialog{:role => "document"}

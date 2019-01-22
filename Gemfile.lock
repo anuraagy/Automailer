@@ -310,6 +310,7 @@ DEPENDENCIES
   jquery-datatables
   jquery-rails
   listen
+  mail
   mailgun-ruby
   pg (>= 0.18, < 2.0)
   pry-rails
