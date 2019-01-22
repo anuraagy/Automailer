@@ -17,6 +17,7 @@
 //= require popper
 //= require toastr
 //= require bootstrap-sprockets
+//= require activestorage
 //= require_tree .
 
 toastr.options = {
@@ -36,3 +37,26 @@ toastr.options = {
   "showMethod": "fadeIn",
   "hideMethod": "fadeOut"
 }
+
+const quillConfig = {
+    theme: 'snow',
+    modules: {
+        toolbar: [
+            [{ 'header': [1, 2, 3, false] }],
+            [{ 'color': [] }, { 'background': [] }],
+            ['bold', 'italic', 'underline', 'strike'],
+            ['blockquote', 'code-block'],
+            ['link'],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            [{ 'indent': '-1'}, { 'indent': '+1' }],
+            ['clean']
+        ],
+        history: {
+          delay: 2000,
+          maxStack: 500,
+          userOnly: true
+        }
+    }
+};
+
+Quilljs.setDefaults(quillConfig)

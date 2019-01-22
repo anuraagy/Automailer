@@ -1,0 +1,5 @@
+puts "50 1 100000"
+
+(1..50).each do |index|
+  puts "S #{index}"
+end

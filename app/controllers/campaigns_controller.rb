@@ -36,6 +36,43 @@ class CampaignsController < ApplicationController
     end
   end
 
+  def attach_file
+    @campaign = Campaign.find(params[:id])
+
+    if @campaign.user_id != current_user.id
+      render status: 401, json: { success: false, message: "You do not have access to this campaign"} 
+    end
+
+    @campaign.attachments.attach(params[:attachments])
+
+    if @campaign.attachments.attached?
+      render status: 200, json: { success: true, message: "Files successfully attached" }
+    else
+      render status: 400, json: { success: false, message: "There was an error with your upload" }
+    end
+  end
+
+  def attachments 
+    @campaign = Campaign.find(params[:id])
+
+    if @campaign.user_id != current_user.id
+      redirect_to root_path, alert: "You can't access this campaign" 
+    else
+      render status: 200, json: { attachments: @campaign.attachments.includes(:blob).as_json(include: [:blob])}
+    end
+  end
+
+  def remove_file
+    @campaign = Campaign.find(params[:id])
+    @file = @campaign.attachments.find(params[:file])
+
+    if @file.destroy
+      render status: 200, json: { success: true, message: "File successfully destroyed" }
+    else
+      render status: 400, json: { success: false, message: "There was an error with your destruction" }
+    end
+  end
+
   def update
     campaign = Campaign.find(params[:id])
 
@@ -63,6 +100,6 @@ class CampaignsController < ApplicationController
   private
 
   def campaign_params
-    params.permit(:name, :status, :template, :data)
+    params.permit(:name, :status, :template, :data, attachments: [])
   end
 end

@@ -9,6 +9,7 @@
 body {
   font-family: "Nunito", sans-serif;
   // background: #30336b;
+  background:#efefef;
   color: black;
 }
 
@@ -381,6 +382,10 @@ td {
   white-space: nowrap;
 }
 
+.attachments {
+  margin-top: 15px;
+}
+
 @media screen and (max-width: 992px) {
   .login-form {
     padding-left: 0px;
@@ -413,3 +418,13 @@ td {
   // background: #2d3436;
   // color: white;
 }
+
+.remove-file-btn {
+  color: white;
+}
+
+.remove-file-btn:hover {
+  font-weight: bold;
+  color: lightgrey;
+}
+
