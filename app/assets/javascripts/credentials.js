@@ -14,16 +14,14 @@ class Credentials {
       return;
     }
 
-    const data = {
-      "credential[name]": name
-    }
+    const data = new FormData();
+    data.append("credential[name]", name);
 
-    fetch("credentials/", 
+    fetch("/credentials", 
     { 
         method: 'POST',  
-        body: JSON.stringify(data),
+        body: data,
         headers: {
-          'Content-Type': 'application/json',
           'X-CSRF-Token': Rails.csrfToken()
         },
     }).then(res => res.json())

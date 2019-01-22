@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_22_032001) do
+ActiveRecord::Schema.define(version: 2019_01_22_183048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 2019_01_22_032001) do
   create_table "campaigns", force: :cascade do |t|
     t.string "name", default: "New Campaign", null: false
     t.string "status", default: "new", null: false
+    t.string "subject"
     t.text "template"
     t.text "data"
     t.bigint "user_id"
@@ -57,6 +58,16 @@ ActiveRecord::Schema.define(version: 2019_01_22_032001) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_credentials_on_user_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.text "template", null: false
+    t.text "data", null: false
+    t.string "status"
+    t.bigint "campaign_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_id"], name: "index_events_on_campaign_id"
   end
 
   create_table "users", force: :cascade do |t|

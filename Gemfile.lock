@@ -209,7 +209,6 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-file-icons (0.0.1)
     rails-html-sanitizer (1.0.4)
       loofah (~> 2.2, >= 2.2.2)
     railties (5.2.2)
@@ -317,7 +316,6 @@ DEPENDENCIES
   puma
   quilljs-rails
   rails
-  rails-file-icons
   sassc-rails
   selenium-webdriver
   spring

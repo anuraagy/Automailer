@@ -14,6 +14,7 @@ class CampaignsController < ApplicationController
 
   def show
     @campaign = Campaign.find(params[:id])
+    @credentials = current_user.credentials
 
     if @campaign.user_id != current_user.id
       redirect_to root_path, alert: "You can't access this campaign" 
@@ -79,6 +80,19 @@ class CampaignsController < ApplicationController
     end
   end
 
+  def run
+    @campaign = Campaign.find(params[:id])
+    @credential = Credential.find(params[:credential])
+    @run = @campaign.run(@credential)
+    
+    if @run[:success] 
+      render status: 200, json: { success: true, message: "Your campaign ran successfully!" }
+    else
+      render status: 400, json: { success: false, message: @run[:message] }
+    end
+
+  end
+
   def update
     campaign = Campaign.find(params[:id])
 
@@ -111,7 +125,7 @@ class CampaignsController < ApplicationController
   private
 
   def campaign_params
-    params.permit(:name, :status, :template, :data, attachments: [])
+    params.permit(:name, :status, :template, :data, :subject, attachments: [])
   end
 
   def has_email_header(data)

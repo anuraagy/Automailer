@@ -6,9 +6,12 @@ Rails.application.routes.draw do
   root to: "pages#index"
 
   resources :campaigns, only: [:create, :show, :edit, :update, :destroy] do 
+    post "run",  on: :member, as: "run"
+
     post "upload",        on: :member, as: "upload"
     post "attach_file",   on: :member, as: "attach_file"
     post "remove_file",   on: :member, as: "remove_file"
+
     get  "attachments",   on: :member, as: "attachments"
   end
 

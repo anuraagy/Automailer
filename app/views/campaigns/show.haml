@@ -2,6 +2,7 @@
   .content-box
     %h1.inline-block
       = @campaign.name
+      = link_to "Run Campaign", "javascript:void(0)", class: "btn btn-lg btn-info", id: "show-run-campaign-modal-btn"
     .inline-block.pull-right
       = link_to "Template", campaign_path(@campaign), class: "btn btn-primary", id: "show-template-btn"
       = link_to "Data", "#data", class: "btn btn-primary", id: "show-data-btn", "data-turbolinks" => "false"
@@ -11,6 +12,7 @@
       #template-view
         .row
           .col.col-md-9
+            = text_field_tag "Email Subject", @campaign.subject, placeholder: "Subject line", class: "form-control", id: "campaign-subject"
             = text_area_tag "Email template", @campaign.template, class: "quill_container", id: "campaign-template"
 
 
@@ -55,3 +57,18 @@
           = render "campaigns/data", rows: parse_data(@campaign.data), headers: parse_headers(@campaign.data)
 
       #history-view{style: "display: none"}
+  #modal-container
+    #run-campaign-modal.modal.fade
+      .modal-dialog{:role => "document"}
+        .modal-content
+          .modal-header
+            %h5.modal-title Run This Campaign
+            %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+              %span{"aria-hidden" => "true"} ×
+          .modal-body
+            .form-group
+            = collection_select :credential, :name, @credentials, :id, :name, { prompt: "Select a credential" },  { class: "form-control", id: "user-credential-select" } 
+          .modal-footer
+            %input#run-campaign-btn.btn.btn-primary{"data-disable-with" => "Run Campaign", :name => "commit", :type => "submit", :value => "Run Campaign"}/
+            %button#run-campaign-close-modal.btn.btn-secondary{"data-dismiss" => "modal", :style => "margin-left: 5px", :type => "button"} Cancel
+

@@ -3,6 +3,7 @@ class CreateCampaigns < ActiveRecord::Migration[5.2]
     create_table :campaigns do |t|
       t.string :name,     null: false, default: "New Campaign"
       t.string :status,   null: false, default: "new"
+      t.string :subject
       t.text   :template
       t.text   :data
 
