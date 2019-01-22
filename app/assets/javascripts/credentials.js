@@ -1,20 +1,42 @@
 class Credentials {
   constructor(element) {
-    this.campaignDash = element.find("#campaign-dash")
-    this.campaignTemplate = element.find("#campaign-template-quill");
-    this.showTemplateBtn = element.find("#show-template-btn");
-    this.showDataBtn = element.find("#show-data-btn");
+    this.credentialsDash = element.find("#credentials-dash")
 
-    this.campaignDash.on("keyup", ".ql-editor", this.updateVariables);
-    this.campaignDash.on("keyup", ".ql-editor", this.autoSave);
-    this.campaignDash.on("click", "#show-template-btn", this.showTemplate);
-    this.campaignDash.on("click", "#show-data-btn", this.showData);
-    this.campaignDash.on("click", "#show-history-btn", this.showHistory);
-
-
-    this.showCorrectView();
-    this.updateVariables();
+    this.credentialsDash.on("click", "#new-credential-btn", this.displayNewCredentialModal);
+    this.credentialsDash.on("click", "#create-credential-btn", this.createNewCredential);
   }
+
+  createNewCredential()  {
+    const name = $("#new-credential-name").val();
+
+    if(!name || name === "") {
+      toastr.error("You need a name for your credential!");
+      return;
+    }
+
+    const data = {
+      "credential[name]": name
+    }
+
+    fetch("credentials/", 
+    { 
+        method: 'POST',  
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': Rails.csrfToken()
+        },
+    }).then(res => res.json())
+    .then((response) => {
+      if(response.success) {
+        location.reload();
+        toastr.success(response.message);
+      } else {
+        toastr.error(response.message);
+      }
+    });
+  }
+
 
   displayNewCredentialModal(e) {
     let modalHTML = `
@@ -22,17 +44,17 @@ class Credentials {
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Create A New Campaign</h5>
+              <h5 class="modal-title">Add A New Credential</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <input id="new-credential-name" class="form-control" maxlength=30 placeholder="Campaign name" required></input>
+              <input id="new-credential-name" class="form-control" maxlength=30 placeholder="Account name" required></input>
             </div>
             <div class="modal-footer">
-              <input type="submit" name="commit" value="Create" class="btn btn-primary" data-disable-with="Add Credential" id="create-campaign-btn">
-              <button type="button" style="margin-left: 5px" class="btn btn-secondary" data-dismiss="modal" id="new-campaign-close-modal">Cancel</button>
+              <input type="submit" name="commit" value="Create" class="btn btn-primary" data-disable-with="Add Credential" id="create-credential-btn">
+              <button type="button" style="margin-left: 5px" class="btn btn-secondary" data-dismiss="modal" id="new-credential-close-modal">Cancel</button>
             </div>
           </div>
         </div>

@@ -11,9 +11,10 @@ class Campaigns {
     this.campaignDash.on("click", "#show-data-btn", this.showData);
     this.campaignDash.on("click", "#show-history-btn", this.showHistory);
 
-
-    this.showCorrectView();
-    this.updateVariables();
+    if(this.campaignDash.length !== 0) {
+      this.showCorrectView();
+      this.updateVariables();
+    }
   }
 
   showCorrectView() {

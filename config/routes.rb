@@ -12,5 +12,5 @@ Rails.application.routes.draw do
     get  "attachments",   on: :member, as: "attachments"
   end
 
-  resources :credentials, only: [:index]
+  resources :credentials, only: [:index, :create, :show, :update, :destroy]
 end

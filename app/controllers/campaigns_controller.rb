@@ -82,6 +82,11 @@ class CampaignsController < ApplicationController
   def update
     campaign = Campaign.find(params[:id])
 
+    if campaign.user_id != current_user.id
+      redirect_to root_path, alert: "You can't access this campaign." 
+      return
+    end
+
     if campaign.update(campaign_params)
       render status: 200, json: { success: true, message: "You have successfully updated your campaign."}
     else

@@ -3,7 +3,7 @@
     %h1.inline-block
       = @campaign.name
     .inline-block.pull-right
-      = link_to "Template", "#template", class: "btn btn-primary", id: "show-template-btn", "data-turbolinks" => "false"
+      = link_to "Template", campaign_path(@campaign), class: "btn btn-primary", id: "show-template-btn"
       = link_to "Data", "#data", class: "btn btn-primary", id: "show-data-btn", "data-turbolinks" => "false"
       = link_to "History", "#history", class: "btn btn-primary", id: "show-history-btn", "data-turbolinks" => "false"
     %hr
