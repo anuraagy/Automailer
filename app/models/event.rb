@@ -9,7 +9,7 @@ class Event < ApplicationRecord
 
 
   # This method starts the sending process for an event (commenting because it is complex)
-  def start
+  def start(password)
 
     # This checks to make sure a user has uploaded data to be sent
     if data.blank?
@@ -55,7 +55,7 @@ class Event < ApplicationRecord
     end
 
     # Calls email service to mass send the emails (or at least start the process)
-    send_email = EmailService.bulk_email(credential, emails, subjects, templates, files)
+    send_email = EmailService.bulk_email(credential, emails, subjects, templates, files, password)
 
     # If email sending process was started, return true, otherwise return false and message
     if send_email[:success]

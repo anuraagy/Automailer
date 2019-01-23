@@ -1,6 +1,7 @@
 class CampaignMailer < ApplicationMailer
   def event_email
     @credential = params[:credential]
+    @password = params[:password]
     @attachments = params[:attachments]
 
     attachments = build_attachments
@@ -19,9 +20,10 @@ class CampaignMailer < ApplicationMailer
   private
 
   def delivery_options
+
     { 
       user_name: @credential.username,
-      password: @credential.password,
+      password: @password,
       address: @credential.smtp_server,
       port: @credential.smtp_port,
       enable_starttls_auto: "true",

@@ -34,11 +34,13 @@ class Campaigns {
   runCampaign() {
     const campaign = window.location.href.match(/[^\/]*$/)[0].split("#")[0];
     const credential = $("#user-credential-select").val();
+    const password = $("#user-password").val();
 
-    if(!campaign || !credential) return;
+    if(!campaign || !credential || !password) return;
 
     const data = {
-      credential: credential
+      credential: credential,
+      password: password
     }
 
     fetch(`/campaigns/${campaign}/run`, 

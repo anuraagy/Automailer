@@ -49,10 +49,8 @@ ActiveRecord::Schema.define(version: 2019_01_22_183048) do
 
   create_table "credentials", force: :cascade do |t|
     t.string "name", null: false
-    t.string "smtp_server"
-    t.string "smtp_port"
-    t.string "username"
-    t.string "password"
+    t.string "provider", null: false
+    t.string "username", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

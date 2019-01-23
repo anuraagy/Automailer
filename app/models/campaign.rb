@@ -14,7 +14,7 @@ class Campaign < ApplicationRecord
     event = Event.new(campaign_id: id, template: template, data: data, credential_id: credential.id, subject: subject, status: "Created")
 
     if event.save
-      return event.start
+      return event.start(credential.password)
     else
       return { success: false, message: event.errors.full_messages } 
     end

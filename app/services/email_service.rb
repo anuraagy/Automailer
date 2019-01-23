@@ -1,5 +1,5 @@
 class EmailService
-  def self.bulk_email(credential, emails, subjects, templates, files)
+  def self.bulk_email(credential, emails, subjects, templates, files, password)
     if emails.blank? || subjects.blank? || templates.blank?
       return { success: false, message: "Please check to make sure that your emails, subject, and template are present!" } 
     end
@@ -9,13 +9,13 @@ class EmailService
     end
 
     emails.each_with_index do |email, index|
-      send_email(email, credential.username, subjects[index], templates[index], files, credential)
+      send_email(email, credential.username, subjects[index], templates[index], files, credential, password)
     end
 
     { success: true }
   end
 
-  def self.send_email(to, from, subject, body, files, credential)
-    CampaignMailer.with(to: to, from: from, subject: subject, body: body, attachments: files, credential: credential).event_email.deliver_later
+  def self.send_email(to, from, subject, body, files, credential, password)
+    CampaignMailer.with(to: to, from: from, subject: subject, body: body, attachments: files, credential: credential, password: password).event_email.deliver_later
   end
 end

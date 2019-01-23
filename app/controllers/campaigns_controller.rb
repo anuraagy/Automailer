@@ -33,10 +33,10 @@ class CampaignsController < ApplicationController
 
     uploaded_io.gsub!("\xEF\xBB\xBF", "") if uploaded_io.encoding
 
-    # if !has_email_header(uploaded_io)
-    #   redirect_to campaign_path(@campaign)+ "#data", alert: "You need to have an email column in your CSV!"
-    #   return
-    # end
+    if !has_email_header(uploaded_io)
+      redirect_to campaign_path(@campaign)+ "#data", alert: "You need to have an email column in your CSV!"
+      return
+    end
 
     if @campaign.update(data: uploaded_io)
       redirect_to campaign_path(@campaign) + "#data"
@@ -50,6 +50,7 @@ class CampaignsController < ApplicationController
 
     if @campaign.user_id != current_user.id
       render status: 401, json: { success: false, message: "You do not have access to this campaign"} 
+      return
     end
 
     @campaign.attachments.attach(params[:attachments])
@@ -66,6 +67,7 @@ class CampaignsController < ApplicationController
 
     if @campaign.user_id != current_user.id
       redirect_to root_path, alert: "You can't access this campaign" 
+      return
     else
       render status: 200, json: { attachments: @campaign.attachments.includes(:blob).as_json(include: [:blob])}
     end
@@ -74,6 +76,11 @@ class CampaignsController < ApplicationController
   def remove_file
     @campaign = Campaign.find(params[:id])
     @file = @campaign.attachments.find(params[:file])
+
+    if @campaign.user_id != current_user.id
+      render status: 401, json: { success: false, message: "You do not have access to this campaign"} 
+      return
+    end
 
     if @file.destroy
       render status: 200, json: { success: true, message: "File successfully destroyed" }
@@ -85,6 +92,13 @@ class CampaignsController < ApplicationController
   def run
     @campaign = Campaign.find(params[:id])
     @credential = Credential.find(params[:credential])
+    @credential.password = params[:password]
+
+    if @campaign.user_id != current_user.id
+      render status: 401, json: { success: false, message: "You do not have access to this campaign"}
+      return
+    end
+    
     @run = @campaign.run(@credential)
     
     if @run[:success] 
@@ -115,6 +129,7 @@ class CampaignsController < ApplicationController
 
     if campaign.user_id != current_user.id
       redirect_to root_path, alert: "You can't access this campaign." 
+      return
     end
 
     if campaign.destroy

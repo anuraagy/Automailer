@@ -7,7 +7,9 @@
           %span{"aria-hidden" => "true"} ×
       .modal-body
         .form-group
-        = collection_select :credential, :name, @credentials, :id, :name, { prompt: "Select a credential" },  { class: "form-control", id: "user-credential-select" } 
+          = collection_select :credential, :name, @credentials, :id, :name, { prompt: "Select a credential" },  { class: "form-control", id: "user-credential-select", required: true } 
+        .form-group
+          = password_field_tag :password, "", placeholder: "Enter your email password", class: "form-control", id: "user-password", required: true
       .modal-footer
         %input#run-campaign-btn.btn.btn-primary{"data-disable-with" => "Run Campaign", :name => "commit", :type => "submit", :value => "Run Campaign"}/
         %button#run-campaign-close-modal.btn.btn-secondary{"data-dismiss" => "modal", :style => "margin-left: 5px", :type => "button"} Cancel

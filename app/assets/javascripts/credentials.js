@@ -11,8 +11,8 @@ class Credentials {
     const provider = $("#new-credential-provider").val();
     const username = $("#new-credential-username").val();
 
-    if(!name || name === "" || !provider || provider === "") {
-      toastr.error("You need a name and provider for your credential!");
+    if(!name || name === "" || !provider || provider === "" || !username || username === "") {
+      toastr.error("You need to fill out all the fields for your credential!");
       return;
     }
 
@@ -53,9 +53,19 @@ class Credentials {
               </button>
             </div>
             <div class="modal-body">
-              <input id="new-credential-name" class="form-control" maxlength=30 placeholder="Account name" required></input>
-              <input id="new-credential-provider" class="form-control" maxlength=30 placeholder="Account name" required></input>
-              <input id="new-credential-username" class="form-control" maxlength=30 placeholder="Email address" required></input>
+              <div class="form-group">
+                <input id="new-credential-name" class="form-control" maxlength=30 placeholder="Account name" required></input>
+              </div>
+              <div class="form-group">
+                <select id="new-credential-provider" class="form-control" placeholder="Provider" required>
+                  <option value="" disabled selected hidden>Select a provider </option>
+                  <option value="Google"><i class="fa fa-google"></i>Google</option>
+                  <option value="Outlook"><i class="fa fa-microsoft"></i>Outlook</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <input id="new-credential-username" class="form-control" maxlength=30 placeholder="Email address" required></input>
+              </div>
             </div>
             <div class="modal-footer">
               <input type="submit" name="commit" value="Create" class="btn btn-primary" data-disable-with="Add Credential" id="create-credential-btn">
