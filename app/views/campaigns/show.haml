@@ -1,76 +1,11 @@
 .container.top-margin#campaign-dash
   .content-box
-    %h1.inline-block
-      = @campaign.name
-    .inline-block.pull-right
-      = link_to "Template", campaign_path(@campaign), class: "btn btn-primary", id: "show-template-btn"
-      = link_to "Data", "#data", class: "btn btn-primary", id: "show-data-btn", "data-turbolinks" => "false"
-      = link_to "History", "#history", class: "btn btn-primary", id: "show-history-btn", "data-turbolinks" => "false"
+    = render "campaigns/header"
     %hr
     .content-body
-      #template-view
-        .row
-          .col.col-md-9
-            = text_field_tag "Email Subject", @campaign.subject, placeholder: "Subject line", class: "form-control", id: "campaign-subject"
-            = text_area_tag "Email template", @campaign.template, class: "quill_container", id: "campaign-template"
-
-
-          .col.col-md-3
-            = link_to "Run Campaign", "javascript:void(0)", class: "btn btn-block btn-primary", id: "show-run-campaign-modal-btn"
-            .card.mb-3{:style => "max-width: 20rem; height: 345px;"}
-              .card-header Variables
-              .card-body#variables
-                - parameterized_headers(@campaign.data). each do |header|
-                  .badge.badge-primary
-                    = header
-
-        .row
-          .col.col-md-3
-            = form_tag "", method: :post, multipart: true, id: "upload-form" do |f|
-              .form-group
-                = file_field_tag :attachments, class: "form-control-file",  multiple: true, id: "file-upload", required: true
-              = submit_tag "Attach", class: "btn btn-primary", id: "file-upload-btn"
-
-          .col-md-9
-            %p.attachments Attachments
-            #current-attachments
-              - @campaign.attachments.each do |attachment|
-                - if attachment.previewable?
-                  %li
-                    = image_tag attachment.preview
-                - else
-                  .badge.badge-primary{"id" => "attached-file-#{attachment.id}", "data-campaign-id" => @campaign.id, "data-attachment-id" => attachment.id}
-                    = attachment.blob.filename
-                    = link_to "x", "javascript:void(0)", class: "remove-file-btn", "data-campaign-id" => @campaign.id, "data-attachment-id" => attachment.id
-
-      #data-view{style: "display: none"}
-        - if @campaign.data.blank?
-          %h4 Upload Data
-        - else
-          %h4 Upload new data
-
-        = form_tag upload_campaign_path(@campaign), :multipart => true do |f|
-          .form-group
-            = file_field_tag "csv_data", class: "form-control-file", accept: ".csv", required: true
-          = submit_tag "Upload", class: "btn btn-primary"
-        .data-table
-          = render "campaigns/data", rows: parse_data(@campaign.data), headers: parse_headers(@campaign.data)
-
-      #history-view{style: "display: none"}
-        = render "campaigns/events", events: @campaign.events
+      = render "campaigns/template"
+      = render "campaigns/data"
+      = render "campaigns/history"
 
   #modal-container
-    #run-campaign-modal.modal.fade
-      .modal-dialog{:role => "document"}
-        .modal-content
-          .modal-header
-            %h5.modal-title Run This Campaign
-            %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-              %span{"aria-hidden" => "true"} ×
-          .modal-body
-            .form-group
-            = collection_select :credential, :name, @credentials, :id, :name, { prompt: "Select a credential" },  { class: "form-control", id: "user-credential-select" } 
-          .modal-footer
-            %input#run-campaign-btn.btn.btn-primary{"data-disable-with" => "Run Campaign", :name => "commit", :type => "submit", :value => "Run Campaign"}/
-            %button#run-campaign-close-modal.btn.btn-secondary{"data-dismiss" => "modal", :style => "margin-left: 5px", :type => "button"} Cancel
-
+    = render "campaigns/run_campaign_modal"

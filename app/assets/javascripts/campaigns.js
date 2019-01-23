@@ -18,6 +18,7 @@ class Campaigns {
     this.campaignDash.on("click", "#run-campaign-btn", this.runCampaign);
 
     $('[data-toggle="popover"]').popover(); 
+    $("#events-table").tablesorter();
 
     if(this.campaignDash.length !== 0) {
       this.showCorrectView();

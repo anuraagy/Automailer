@@ -1,16 +1,12 @@
-%table.table.table-hover
-  %thead
-    %tr
-      - headers.each do |header|
-        %th{:scope => "col"}  
-          = header
-  %tbody
-    - rows.each do |row|
-      %tr
-        - headers.each do |header|
-          %td 
-            = row[header]
+#data-view{style: "display: none"}
+  - if @campaign.data.blank?
+    %h4 Upload Data
+  - else
+    %h4 Upload new data
 
-    
-
-      
+  = form_tag upload_campaign_path(@campaign), :multipart => true do |f|
+    .form-group
+      = file_field_tag "csv_data", class: "form-control-file", accept: ".csv", required: true
+    = submit_tag "Upload", class: "btn btn-primary"
+  .data-table
+    = render "campaigns/csv", rows: parse_data(@campaign.data), headers: parse_headers(@campaign.data)

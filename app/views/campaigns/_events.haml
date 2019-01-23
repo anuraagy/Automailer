@@ -1,7 +1,8 @@
-%table.table.table-hover
+%table.table.table-hover#events-table
   %thead
     %tr
       %th Subject/Template
+      %th Credential
       %th Status
       %th CSV Data
       %th Sent at
@@ -10,11 +11,13 @@
       %tr
         %td 
           = button_tag  "View Info", "data-container" => "body", "data-content" => event.template, "data-html" => "true", "data-original-title" => event.subject, "data-placement" => "left", "data-toggle" => "popover", "data-trigger" => "focus", class: "badge badge-primary"
+        %td
+          = event.credential.name
         %td 
           = event.status
         %td
           = link_to "Data", data_event_path(event) + ".csv", class: "badge badge-primary"
         %td
-          = event.created_at
+          = event.created_at.localtime.strftime("%b %e, %Y at %l:%M %P")  
 
     

@@ -1,0 +1,34 @@
+#template-view
+  .row
+    .col.col-md-9
+      = text_field_tag "Email Subject", @campaign.subject, placeholder: "Subject line", class: "form-control", id: "campaign-subject"
+      = text_area_tag "Email template", @campaign.template, class: "quill_container", id: "campaign-template"
+
+
+    .col.col-md-3
+      = link_to "Run Campaign", "javascript:void(0)", class: "btn btn-block btn-primary", id: "show-run-campaign-modal-btn"
+      .card.mb-3{:style => "max-width: 20rem; height: 345px;"}
+        .card-header Variables
+        .card-body#variables
+          - parameterized_headers(@campaign.data). each do |header|
+            .badge.badge-primary
+              = header
+
+  .row
+    .col.col-md-3
+      = form_tag "", method: :post, multipart: true, id: "upload-form" do |f|
+        .form-group
+          = file_field_tag :attachments, class: "form-control-file",  multiple: true, id: "file-upload", required: true
+        = submit_tag "Attach", class: "btn btn-primary", id: "file-upload-btn"
+
+    .col-md-9
+      %p.attachments Attachments
+      #current-attachments
+        - @campaign.attachments.each do |attachment|
+          - if attachment.previewable?
+            %li
+              = image_tag attachment.preview
+          - else
+            .badge.badge-primary{"id" => "attached-file-#{attachment.id}", "data-campaign-id" => @campaign.id, "data-attachment-id" => attachment.id}
+              = attachment.blob.filename
+              = link_to "x", "javascript:void(0)", class: "remove-file-btn", "data-campaign-id" => @campaign.id, "data-attachment-id" => attachment.id

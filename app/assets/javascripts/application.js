@@ -12,12 +12,14 @@
 //
 //= require rails-ujs
 //= require jquery3
+//= require jquery-tablesorter
 //= require turbolinks
 //= require quill.global
 //= require popper
 //= require toastr
 //= require bootstrap-sprockets
 //= require activestorage
+
 //= require_tree .
 
 toastr.options = {
