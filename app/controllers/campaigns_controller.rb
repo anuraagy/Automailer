@@ -29,12 +29,14 @@ class CampaignsController < ApplicationController
       return
     end
 
-    uploaded_io = params[:csv_data].read.gsub("\xEF\xBB\xBF", "");
+    uploaded_io = params[:csv_data].read
 
-    if !has_email_header(uploaded_io)
-      redirect_to campaign_path(@campaign)+ "#data", alert: "You need to have an email column in your CSV!"
-      return
-    end
+    uploaded_io.gsub!("\xEF\xBB\xBF", "") if uploaded_io.encoding
+
+    # if !has_email_header(uploaded_io)
+    #   redirect_to campaign_path(@campaign)+ "#data", alert: "You need to have an email column in your CSV!"
+    #   return
+    # end
 
     if @campaign.update(data: uploaded_io)
       redirect_to campaign_path(@campaign) + "#data"
@@ -125,13 +127,17 @@ class CampaignsController < ApplicationController
   private
 
   def campaign_params
-    params.permit(:name, :status, :template, :data, :subject, attachments: [])
+    params.permit(:name, :template, :data, :subject, attachments: [])
   end
 
   def has_email_header(data)
     return false if data.blank?
 
-    headers = CSV.parse(data, headers: true).headers.map { |header| header.parameterize.underscore}
+    csv = CSV.parse(data, headers: true)
+
+    return false if csv.headers.blank?
+
+    headers = csv.headers.map { |header| header.parameterize.underscore}
     headers.include?("email")
   end
 end

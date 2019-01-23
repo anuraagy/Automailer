@@ -385,6 +385,7 @@ td {
 
 .attachments {
   margin-top: 15px;
+  margin-bottom: 5px;
 }
 
 @media screen and (max-width: 992px) {
@@ -441,4 +442,9 @@ td {
 #show-run-campaign-modal-btn {
   margin-bottom: 15px;
   padding: 8px 25px;
+}
+
+.data-csv {
+  margin-top: 25px;
+  width: 100%;
 }

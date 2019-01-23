@@ -8,14 +8,19 @@ class Credentials {
 
   createNewCredential()  {
     const name = $("#new-credential-name").val();
+    const provider = $("#new-credential-provider").val();
+    const username = $("#new-credential-username").val();
 
-    if(!name || name === "") {
-      toastr.error("You need a name for your credential!");
+    if(!name || name === "" || !provider || provider === "") {
+      toastr.error("You need a name and provider for your credential!");
       return;
     }
 
     const data = new FormData();
+
     data.append("credential[name]", name);
+    data.append("credential[provider]", provider);
+    data.append("credential[username]", username);
 
     fetch("/credentials", 
     { 
@@ -49,6 +54,8 @@ class Credentials {
             </div>
             <div class="modal-body">
               <input id="new-credential-name" class="form-control" maxlength=30 placeholder="Account name" required></input>
+              <input id="new-credential-provider" class="form-control" maxlength=30 placeholder="Account name" required></input>
+              <input id="new-credential-username" class="form-control" maxlength=30 placeholder="Email address" required></input>
             </div>
             <div class="modal-footer">
               <input type="submit" name="commit" value="Create" class="btn btn-primary" data-disable-with="Add Credential" id="create-credential-btn">

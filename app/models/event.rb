@@ -2,8 +2,11 @@ class Event < ApplicationRecord
   belongs_to :campaign
   belongs_to :credential
 
-  validates :template,  presence: true
-  validates :data,      presence: true
+  validates :template,    presence: true
+  validates :data,        presence: true
+  validates :campaign,    presence: true
+  validates :credential,  presence: true
+
 
   # This method starts the sending process for an event (commenting because it is complex)
   def start

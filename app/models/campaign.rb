@@ -1,9 +1,12 @@
 class Campaign < ApplicationRecord
-  has_many_attached :attachments
+  has_many_attached :attachments, dependent: :destroy
   has_many :events
+
   belongs_to :user
 
   validates :name, presence: true
+  validates :user, presence: true
+
 
   def run(credential)
     return { success: false, message: "Invalid credentials" } unless valid_credential?(credential) 

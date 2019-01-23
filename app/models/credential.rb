@@ -2,7 +2,9 @@ class Credential < ApplicationRecord
   belongs_to :user
   has_many :events
 
+  validates :user, presence: true
+
   def valid_smtp?
-    smtp_server.present? && smtp_port.present? && username.present? && password.present?
+    username.present?
   end
 end

@@ -6,8 +6,8 @@ class CreateEvents < ActiveRecord::Migration[5.2]
       t.text   :data,      null: false
       t.string :status
 
-      t.belongs_to :campaign
-      t.belongs_to :credential
+      t.belongs_to :campaign,   null: false
+      t.belongs_to :credential, null: false
 
       t.timestamps
     end

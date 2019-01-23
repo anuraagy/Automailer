@@ -16,6 +16,6 @@ module CampaignsHelper
   def parameterized_headers(data)
     return [] if data.blank?
 
-    parse_headers(data).map { |header| header.parameterize.underscore}
+    parse_headers(data).map { |header| header.present? && header.parameterize.underscore}
   end
 end

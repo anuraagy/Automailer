@@ -38,23 +38,22 @@ ActiveRecord::Schema.define(version: 2019_01_22_183048) do
 
   create_table "campaigns", force: :cascade do |t|
     t.string "name", default: "New Campaign", null: false
-    t.string "status", default: "new", null: false
     t.string "subject"
     t.text "template"
     t.text "data"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_campaigns_on_user_id"
   end
 
   create_table "credentials", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.string "smtp_server"
     t.string "smtp_port"
     t.string "username"
     t.string "password"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_credentials_on_user_id"
@@ -65,8 +64,8 @@ ActiveRecord::Schema.define(version: 2019_01_22_183048) do
     t.text "template", null: false
     t.text "data", null: false
     t.string "status"
-    t.bigint "campaign_id"
-    t.bigint "credential_id"
+    t.bigint "campaign_id", null: false
+    t.bigint "credential_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["campaign_id"], name: "index_events_on_campaign_id"

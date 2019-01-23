@@ -19,6 +19,7 @@ class Campaigns {
 
     $('[data-toggle="popover"]').popover(); 
     $("#events-table").tablesorter();
+    $("#data-csv").tablesorter();
 
     if(this.campaignDash.length !== 0) {
       this.showCorrectView();
