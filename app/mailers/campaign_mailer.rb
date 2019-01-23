@@ -23,13 +23,15 @@ class CampaignMailer < ApplicationMailer
       user_name: @credential.username,
       password: @credential.password,
       address: @credential.smtp_server,
-      port: @credential.smtp_port
+      port: @credential.smtp_port,
+      enable_starttls_auto: "true",
+      authentication: :login
     }
   end
 
   def build_attachments
     @attachments.each do |attachment|
-      attachments[attachment[:name]] = attachment[:path]
+      attachments[attachment[:name]] = File.read(attachment[:path])
     end
   end
 end
