@@ -2,7 +2,7 @@
   .card.campaign-card
     .card-body
       %p
-        = campaign.name
+        = "#{campaign.name[0..20]}#{"..." if campaign.name.length > 20}"
       .pull-right
         - if campaign.template.present?
           .badge.badge-primary
@@ -11,4 +11,4 @@
           .badge.badge-primary
             Data
       = link_to "Manage", campaign_path(campaign), class: "badge"
-      = link_to "Delete", campaign_path(campaign), method: :delete, class: "badge"
+      = link_to "Delete", campaign_path(campaign), method: :delete, class: "badge", data: { 'confirm' => "Are you sure you want to delete this campaign?" }

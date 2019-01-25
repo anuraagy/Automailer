@@ -33,6 +33,10 @@ a:hover {
   text-decoration: none;
 }
 
+.modal-content {
+  border-radius: 2px;
+}
+
 
 .btn-primary,
 .btn-primary:hover,
@@ -139,7 +143,7 @@ a:hover {
   background: #11103E;
 }
 
-.btn-primary, .btn-info, .btn-secondary {
+.btn-primary, .btn-info, .btn-secondary, .btn-danger {
   border: none;
   border-radius: 0px;
   text-transform: none;
@@ -351,6 +355,14 @@ a:hover {
 
 .top-margin {
   margin-top: 120px;
+}
+
+.toast {
+    opacity: 1 !important;
+}
+
+#toast-container > .toast-success {
+  background: #ff5174 !important;
 }
 
 .content-box {
