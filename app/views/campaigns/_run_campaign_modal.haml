@@ -2,7 +2,7 @@
   .modal-dialog{:role => "document"}
     .modal-content
       .modal-header
-        %h5.modal-title Run This Campaign
+        %h5.modal-title#run-title Run This Campaign
         %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
           %span{"aria-hidden" => "true"} ×
       .modal-body
@@ -13,4 +13,5 @@
       .modal-footer
         %input#run-campaign-btn.btn.btn-primary{"data-disable-with" => "Run Campaign", :name => "commit", :type => "submit", :value => "Run Campaign"}/
         %button#run-campaign-close-modal.btn.btn-secondary{"data-dismiss" => "modal", :style => "margin-left: 5px", :type => "button"} Cancel
+
 

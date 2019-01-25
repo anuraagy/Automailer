@@ -37,6 +37,7 @@ class Campaigns {
   }
 
   runCampaign() {
+
     const campaign = window.location.href.match(/[^\/]*$/)[0].split("#")[0];
     const credential = $("#user-credential-select").val();
     const password = $("#user-password").val();
@@ -60,9 +61,18 @@ class Campaigns {
     .then(res => res.json())
     .then((response) => {
       if(response.success) {
-        toastr.success(response.message);
-        $("#run-campaign-modal").modal('hide');
-        Turbolinks.visit(`/campaigns/${campaign}#history`);
+        const title = $("#run-title");
+        title.text("Running");
+
+        setInterval(function() {
+          title.text(title.text() + ".");
+        }, 600);
+        
+        setTimeout(function () {
+          $("#run-campaign-modal").modal('hide');
+          Turbolinks.visit(`/campaigns/${campaign}#history`);
+        }, 3000);
+
       } else {
         toastr.error(response.message);
       }
