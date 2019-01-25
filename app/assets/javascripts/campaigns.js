@@ -16,6 +16,7 @@ class Campaigns {
     this.campaignDash.on("click", "#show-history-btn", this.showHistory);
     this.campaignDash.on("click", "#show-run-campaign-modal-btn", this.displayRunCampaignModal);
     this.campaignDash.on("click", "#run-campaign-btn", this.runCampaign);
+    this.campaignDash.on("change", "#csv-upload", this.uploadCSV);
 
     $('[data-toggle="popover"]').popover(); 
     $("#events-table").tablesorter();
@@ -25,6 +26,10 @@ class Campaigns {
       this.showCorrectView();
       this.updateVariables();
     }
+  }
+
+  uploadCSV() {
+    $("#csv-data").submit();
   }
 
   displayRunCampaignModal() {
@@ -145,7 +150,7 @@ class Campaigns {
           const found = variable.innerText === cleanV;
           
           if(found) {
-            variable.className ="badge badge-success";
+            variable.className ="badge badge-primary";
           }
 
           return !found;
@@ -153,7 +158,7 @@ class Campaigns {
       });
     }
 
-    availableVars.forEach(variable => variable.className = "badge badge-primary");
+    availableVars.forEach(variable => variable.className = "badge badge-info");
   }
 }
 

@@ -1,16 +1,19 @@
 .fake-body
-  .col.col-lg-6.auth-form
-    %h2.auth-title Log in
-    = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-      .field.form-group
-        = f.email_field :email, placeholder: "Email", autofocus: true, autocomplete: "email", :class => "form-control", required: true
-      .field.form-group
-        = f.password_field :password, placeholder: "Password", autocomplete: "off", :class => "form-control", required: true
-      - if devise_mapping.rememberable?
-        .field
-          = f.check_box :remember_me
-          = f.label :remember_me, :class => "col-form-label"
-      .actions
-        = f.submit "Log in", :class => "btn btn-primary"
-    = render "devise/shared/links"
-  .col.col-lg-6.login-side
+  .row
+    .col.col-lg-6
+      .auth-form
+        / %i.fa.fa-arrow-left{style: "position: absolute; top: 50px; margin-left: 0px"}
+        %h2.auth-title Log in
+        = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+          .field.form-group
+            = f.email_field :email, placeholder: "Email", autofocus: true, autocomplete: "email", :class => "form-control", required: true
+          .field.form-group
+            = f.password_field :password, placeholder: "Password", autocomplete: "off", :class => "form-control", required: true
+          - if devise_mapping.rememberable?
+            .field
+              = f.check_box :remember_me
+              = f.label :remember_me, :class => "col-form-label"
+          .actions
+            = f.submit "Log in", :class => "btn btn-primary"
+        = render "devise/shared/links"
+    .col.col-lg-6.login-side

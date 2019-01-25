@@ -1,23 +1,26 @@
-%table.table.table-hover#events-table
-  %thead
-    %tr
-      %th Subject/Template
-      %th Credential
-      %th Status
-      %th CSV Data
-      %th Sent at
-  %tbody
-    - events.each do |event|
+- if events.present?
+  %table.table.table-hover#events-table
+    %thead
       %tr
-        %td 
-          = button_tag  "View Info", "data-container" => "body", "data-content" => event.template, "data-html" => "true", "data-original-title" => event.subject, "data-placement" => "left", "data-toggle" => "popover", "data-trigger" => "focus", class: "badge badge-primary"
-        %td
-          = event.credential.name
-        %td 
-          = event.status
-        %td
-          = link_to "Data", data_event_path(event) + ".csv", class: "badge badge-primary"
-        %td
-          = event.created_at.localtime.strftime("%b %e, %Y at %l:%M %P")  
+        %th Subject/Template
+        %th Credential
+        %th Status
+        %th CSV Data
+        %th Sent at
+    %tbody
+      - events.each do |event|
+        %tr
+          %td 
+            = button_tag  "View Info", "data-container" => "body", "data-content" => event.template, "data-html" => "true", "data-original-title" => event.subject, "data-placement" => "left", "data-toggle" => "popover", "data-trigger" => "focus", class: "badge badge-primary"
+          %td
+            = event.credential&.name || "Deleted credential"
+          %td 
+            = event.status
+          %td
+            = link_to "Data", data_event_path(event) + ".csv", class: "badge badge-primary"
+          %td
+            = event.created_at.localtime.strftime("%b %e, %Y at %l:%M %P")  
+- else
+  %h1.text-center{style: "margin-top: 50px"} No campaign history to show
 
-    
+      

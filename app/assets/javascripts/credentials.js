@@ -59,7 +59,7 @@ class Credentials {
               <div class="form-group">
                 <select id="new-credential-provider" class="form-control" placeholder="Provider" required>
                   <option value="" disabled selected hidden>Select a provider </option>
-                  <option value="Google"><i class="fa fa-google"></i>Google</option>
+                  <option value="Gmail"><i class="fa fa-google"></i>Gmail</option>
                   <option value="Outlook"><i class="fa fa-microsoft"></i>Outlook</option>
                 </select>
               </div>

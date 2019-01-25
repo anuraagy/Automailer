@@ -4,7 +4,7 @@ class Credential < ApplicationRecord
 
   validates :user,      presence: true
   validates :username,  presence: true
-  validates :provider,  presence: true, :inclusion=> { :in => ["Google", "Outlook"] }
+  validates :provider,  presence: true, :inclusion=> { :in => ["Gmail", "Outlook"] }
 
   attr_accessor :password
 
@@ -13,7 +13,7 @@ class Credential < ApplicationRecord
   end
 
   def smtp_server
-    return "smtp.gmail.com" if provider == "Google"
+    return "smtp.gmail.com" if provider == "Gmail"
     return "smtp-mail.outlook.com" if provider == "Outlook"
   end
 

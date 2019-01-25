@@ -5,9 +5,15 @@ class Uploads {
 
 
     this.campaignDash.on("click", ".remove-file-btn", this.removeFile);
+    this.campaignDash.on("change", "#file-upload", this.attachFile);
     this.attachmentForm.on("submit", this.attachFile);
+
+    this.handleFileUploadUi();  
   }
-   
+
+  handleFileUploadUi() {
+   document.querySelector("html").classList.add('js');
+  }
 
   attachFile(e) {
     e.preventDefault();

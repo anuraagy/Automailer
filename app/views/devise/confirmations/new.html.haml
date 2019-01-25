@@ -1,12 +1,14 @@
 .fake-body
-  .col.col-lg-6.auth-form
-    %h2.auth-title Resend confirmation instructions
-    = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
-      = devise_error_messages!
-      .field.form-group
-        = f.label :email
-        = f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), :class => "form-control"
-      .actions
-        = f.submit "Resend confirmation instructions", :class => "btn btn-primary"
-    = render "devise/shared/links"
-  .col.col-lg-6.login-side
+  .row
+    .col.col-lg-6
+      .auth-form
+        %h2.auth-title Resend confirmation instructions
+        = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+          = devise_error_messages!
+          .field.form-group
+            = f.label :email
+            = f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), :class => "form-control"
+          .actions
+            = f.submit "Resend confirmation instructions", :class => "btn btn-primary"
+        = render "devise/shared/links"
+    .col.col-lg-6.login-side

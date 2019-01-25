@@ -18,4 +18,8 @@ module CampaignsHelper
 
     parse_headers(data).map { |header| header.present? && header.parameterize.underscore}
   end
+
+  def csv_data_label(data)
+    data.blank? ? "Upload CSV Data" : "Reupload CSV Data"
+  end
 end

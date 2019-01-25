@@ -11,17 +11,19 @@
         .card-header Variables
         .card-body#variables
           - parameterized_headers(@campaign.data). each do |header|
-            .badge.badge-primary
+            .badge.badge-info
               = header
 
   .row
-    .col.col-md-3
+    .col.col-md-2
       = form_tag "", method: :post, multipart: true, id: "upload-form" do |f|
         .form-group
-          = file_field_tag :attachments, class: "form-control-file",  multiple: true, id: "file-upload", required: true
-        = submit_tag "Attach", class: "btn btn-primary", id: "file-upload-btn"
+          .input-file-container
+            = file_field_tag :attachments, class: "input-file",  multiple: true, id: "file-upload", required: true
+            = label_tag "Attach a file", "Attach a file", for: "file", class: "btn-primary btn-block input-file-trigger btn"
+          %p.file-return
 
-    .col-md-9
+    .col-md-10
       %p.attachments Attachments
       #current-attachments
         - @campaign.attachments.each do |attachment|

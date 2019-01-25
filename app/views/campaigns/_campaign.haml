@@ -5,16 +5,10 @@
         = campaign.name
       .pull-right
         - if campaign.template.present?
-          .badge.badge-success
-            Template
-        - else 
-          .badge.badge-danger
+          .badge.badge-primary
             Template
         - if campaign.data.present?
-          .badge.badge-success
-            Data
-        - else 
-          .badge.badge-danger
+          .badge.badge-primary
             Data
       = link_to "Manage", campaign_path(campaign), class: "badge"
       = link_to "Delete", campaign_path(campaign), method: :delete, class: "badge"

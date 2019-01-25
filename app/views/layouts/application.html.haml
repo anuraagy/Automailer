@@ -6,6 +6,8 @@
     %title Automailer
     = csrf_meta_tags
     %script{:src => "https://cdn.quilljs.com/1.1.9/quill.js"}
+    %script{:src => "https://unpkg.com/animejs@2.2.0/anime.min.js"}
+    %script{:src => "https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"}
     %link{:href => "https://cdn.quilljs.com/1.1.9/quill.snow.css", :rel => "stylesheet"}/
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
@@ -14,3 +16,5 @@
       = render "shared/navbar"
       = render "shared/messages"
       = yield
+      = render "shared/footer"
+

@@ -1,17 +1,19 @@
 .fake-body
-  .col.col-lg-6.auth-form
-    %h2.auth-title Sign up
-    = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-      = devise_error_messages!
-      .field.form-group
-        = f.text_field :name, placeholder: "Full name", autofocus: true, autocomplete: "name", required: true, :class => "form-control"
-      .field.form-group
-        = f.email_field :email, placeholder: "Email", autofocus: true, autocomplete: "email", required: true, :class => "form-control"
-      .field.form-group
-        = f.password_field :password, placeholder: "Password (#{@minimum_password_length} characters minimum)", autocomplete: "new-password", required: true, :class => "form-control"
-      .field.form-group
-        = f.password_field :password_confirmation, placeholder: "Password confirmation", autocomplete: "new-password", required: true, :class => "form-control"
-      .actions
-        = f.submit "Sign up", :class => "btn btn-primary"
-      = render "devise/shared/links"
-  .col.col-lg-6.login-side
+  .row
+    .col.col-lg-6
+      .auth-form
+        %h2.auth-title Sign up
+        = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+          = devise_error_messages!
+          .field.form-group
+            = f.text_field :name, placeholder: "Full name", autofocus: true, autocomplete: "name", required: true, :class => "form-control"
+          .field.form-group
+            = f.email_field :email, placeholder: "Email", autofocus: true, autocomplete: "email", required: true, :class => "form-control"
+          .field.form-group
+            = f.password_field :password, placeholder: "Password (#{@minimum_password_length} characters minimum)", autocomplete: "new-password", required: true, :class => "form-control"
+          .field.form-group
+            = f.password_field :password_confirmation, placeholder: "Password confirmation", autocomplete: "new-password", required: true, :class => "form-control"
+          .actions
+            = f.submit "Sign up", :class => "btn btn-primary"
+          = render "devise/shared/links"
+    .col.col-lg-6.login-side

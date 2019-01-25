@@ -1,14 +1,16 @@
 .fake-body
-  .col.col-lg-6.auth-form
-    %h2.auth-title Change your password
-    = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
-      = devise_error_messages!
-      = f.hidden_field :reset_password_token
-      .field.form-group
-        = f.password_field :password, placeholder: "New password (#{@minimum_password_length} characters minimum)", autofocus: true, autocomplete: "new-password", :class => "form-control"
-      .field.form-group
-        = f.password_field :password_confirmation, placeholder: "Confirm new password", autocomplete: "off", :class => "form-control"
-      .actions
-        = f.submit "Change my password", :class => "btn btn-primary"
-    = render "devise/shared/links"
-  .col.col-lg-6.login-side
+  .row
+    .col.col-lg-6
+      .auth-form
+        %h2.auth-title Change your password
+        = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+          = devise_error_messages!
+          = f.hidden_field :reset_password_token
+          .field.form-group
+            = f.password_field :password, placeholder: "New password (#{@minimum_password_length} characters minimum)", autofocus: true, autocomplete: "new-password", :class => "form-control"
+          .field.form-group
+            = f.password_field :password_confirmation, placeholder: "Confirm new password", autocomplete: "off", :class => "form-control"
+          .actions
+            = f.submit "Change my password", :class => "btn btn-primary"
+        = render "devise/shared/links"
+    .col.col-lg-6.login-side

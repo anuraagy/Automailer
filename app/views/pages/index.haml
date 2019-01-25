@@ -2,11 +2,16 @@
   #dash
     .container.top-margin
       .content-box
-        %h1.inline-block Your Campaigns
+        %h1.inline-block Manage Campaigns
         .inline-block.pull-right
           = link_to "+ New Campaign", "javascript:void(0)", class: "btn btn-primary", id: "new-campaign-btn"
         %hr
-        .row
-          - current_user.campaigns.each do |campaign|
-            = render "campaigns/campaign", campaign: campaign
+        - if current_user.campaigns.present?
+          .row
+            - current_user.campaigns.each do |campaign|
+              = render "campaigns/campaign", campaign: campaign
+        - else 
+          %h2.text-center{style: "margin-top: 50px"} No email campaigns to show
     #modal-container
+- else
+  = render "pages/landing"

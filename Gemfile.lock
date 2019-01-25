@@ -81,6 +81,8 @@ GEM
       deep_merge (~> 1.2.1)
       dry-validation (>= 0.12.2)
     crass (1.0.4)
+    data-confirm-modal (1.6.2)
+      railties (>= 3.0)
     deep_merge (1.2.1)
     devise (4.5.0)
       bcrypt (~> 3.0)
@@ -304,6 +306,7 @@ DEPENDENCIES
   capybara
   coffee-rails
   config
+  data-confirm-modal
   devise
   faker
   font-awesome-rails

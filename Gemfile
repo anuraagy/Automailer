@@ -34,6 +34,9 @@ gem "font-awesome-rails"
 gem 'turbolinks'
 gem 'quilljs-rails'
 gem 'jquery-tablesorter'
+gem 'data-confirm-modal'
+
+
 
 
 group :development, :test do

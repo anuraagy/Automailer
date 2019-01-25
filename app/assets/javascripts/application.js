@@ -19,6 +19,7 @@
 //= require toastr
 //= require bootstrap-sprockets
 //= require activestorage
+//= require data-confirm-modal
 
 //= require_tree .
 
@@ -62,3 +63,9 @@ const quillConfig = {
 };
 
 Quilljs.setDefaults(quillConfig)
+
+dataConfirmModal.setDefaults({
+  title: 'Confirm your action',
+  commit: 'Continue',
+  cancel: 'Cancel'
+});
