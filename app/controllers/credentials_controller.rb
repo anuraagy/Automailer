@@ -22,26 +22,26 @@ class CredentialsController < ApplicationController
   end
 
   def update
-    credential = Credential.find(params[:id])
+    @credential = Credential.find(params[:id])
 
     verify_permissions
 
-    if credential.update(credential_params)
-      redirect_to credential_path(credential), notice: "You've successfully updated your credentials!"
+    if @credential.update(credential_params)
+      redirect_to credential_path(@credential), notice: "You've successfully updated your credentials!"
     else
-      render credential_path(credential), notice: credential.errors.full_messages
+      render credential_path(@credential), notice: @credential.errors.full_messages
     end
   end
 
   def destroy
-    credential = Credential.find(params[:id])
+    @credential = Credential.find(params[:id])
 
     verify_permissions
 
-    if credential.destroy
-      redirect_to root_path, notice: "Your credential has been successfully deleted."
+    if @credential.destroy
+      redirect_to credentials_path, notice: "Your credential has been successfully deleted."
     else
-      redirect_to root_path, notice: "You can't delete this credential." 
+      redirect_to credentials_path, notice: "You can't delete this credential." 
     end    
   end
 
