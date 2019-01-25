@@ -13,8 +13,9 @@
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
     .wrapper
+      = custom_bootstrap_flash
       = render "shared/navbar"
-      = render "shared/messages"
+      / = render "shared/messages"
       = yield
       = render "shared/footer"
 
