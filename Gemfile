@@ -15,6 +15,8 @@ gem 'config'
 gem 'byebug'
 gem 'pry-rails'
 gem 'mail'
+gem 'delayed_job_active_record'
+gem "daemons" 
 
 # Authentication
 gem 'devise'

@@ -1,5 +1,5 @@
 class CampaignMailer < ApplicationMailer
-  def event_email
+  def event_email(params = {})
     @credential = params[:credential]
     @password = params[:password]
     @attachments = params[:attachments]
@@ -14,9 +14,7 @@ class CampaignMailer < ApplicationMailer
     ) do |format| 
       format.html { params[:body] }
     end
-
   end
-
   private
 
   def delivery_options

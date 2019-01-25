@@ -16,6 +16,6 @@ class EmailService
   end
 
   def self.send_email(to, from, subject, body, files, credential, password)
-    CampaignMailer.with(to: to, from: from, subject: subject, body: body, attachments: files, credential: credential, password: password).event_email.deliver_later
+    CampaignMailer.delay.event_email(to: to, from: from, subject: subject, body: body, attachments: files, credential: credential, password: password)
   end
 end
